@@ -13,7 +13,11 @@
     "@snowpack/web-test-runner-plugin": "^0.1.4",
     "@testing-library/svelte": "^3.0.0",
     "@web/test-runner": "^0.9.7",
+    "carbon-components-svelte": "^0.22.0",
     "chai": "^4.2.0",
-    "snowpack": "^2.17.0"
+    "chance": "^1.1.7",
+    "node-sass": "^5.0.0",
+    "snowpack": "^2.17.0",
+    "svelte-routing": "^1.4.2"
   }
 }
