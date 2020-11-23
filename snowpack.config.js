@@ -7,9 +7,10 @@ module.exports = {
   plugins: [
     '@snowpack/plugin-svelte',
     '@snowpack/plugin-dotenv',
+    ["@snowpack/plugin-build-script", {"cmd": "postcss", "input": [".css"], "output": [".css"]}]
   ],
   install: [
-    /* ... */
+    './node_modules/hiq/dist/hiq.css',
   ],
   installOptions: {
     /* ... */

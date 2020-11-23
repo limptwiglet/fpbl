@@ -6,26 +6,20 @@
   </Route>
 
   <Route>
-    <DataTable
-      zebra
-      sortable
-      headers={headers}
-      rows={searchedRows}>
-
-      <Toolbar>
-        <ToolbarContent>
-          <ToolbarSearch bind:value={searchString} />
-        </ToolbarContent>
-      </Toolbar>
-
-      <span slot="cell" let:row let:cell>
-        {#if cell.key === 'name'}
-          <Link to="{row.id}">{row.name}</Link>
-        {:else}
-          {cell.value}
-        {/if}
-      </span>
-    </DataTable>
+    <nav>
+      <input type="text" bind:value={searchString}/>
+    </nav>
+    <Table
+      {headers}
+      rows="{searchedRows}"
+      let:row
+      let:header>
+      {#if header.key === 'name'}
+        <Link to="{`/players/${row.id}`}">{row.name}</Link>
+      {:else}
+        {row[header.key]}
+      {/if}
+    </Table>
   </Route>
 </Router>
 
@@ -35,16 +29,11 @@
     Route,
     Link
   } from 'svelte-routing';
-  import {
-    DataTable,
-    Toolbar,
-    ToolbarContent,
-    ToolbarSearch
-  } from 'carbon-components-svelte';
 
   import Player from './Players/player.svelte';
+  import Table from '../components/Table.svelte';
 
-  import players from '../stores/players';
+  import playersStore from '../stores/players';
 
   let searchString = '';
 
@@ -55,16 +44,13 @@
     { key: 'stamina', value: 'Stamina' },
     { key: 'agility', value: 'Agility' },
     { key: 'health', value: 'Health' },
-    { key: 'age', value: 'Age'}
+    { key: 'age', value: 'Age'},
+    { key: 'status', value: 'Status', }
   ];
 
-  $: rows = $players;
+  $: searchedRows = searchRows($playersStore.players, searchString);
 
-  $: searchedRows = searchRows(searchString);
-
-  const searchRows = (name) => {
-    return rows.filter((row) => {
-      return row.name.includes(name);
-    });
+  const searchRows = (players, searchStr) => {
+    return [...players].filter(player => player.name.includes(searchStr));
   };
 </script>

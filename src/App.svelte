@@ -1,15 +1,5 @@
 <script>
   import {
-    Header,
-    HeaderNav,
-    HeaderNavItem,
-    SkipToContent,
-    Content,
-    Grid,
-    Row,
-    Column,
-  } from "carbon-components-svelte";
-  import {
     Router,
     Route,
     Link
@@ -18,39 +8,32 @@
   import Home from './pages/Home.svelte';
   import Players from './pages/Players.svelte';
   import Team from './pages/Team.svelte';
+  import Matches from './pages/Matches.svelte';
 
   let url = '';
 </script>
 
-<style lang="scss" global>
-  @import "carbon-components-svelte/css/g90";
+<style global lang="postcss">
+  @import 'hiq/dist/hiq.min.css';
 </style>
 
-<Router {url}>
-  <Header company="FPBL">
-    <div slot="skip-to-content">
-      <SkipToContent />
-    </div>
+<div class="container">
+  <Router {url}>
+    <header>
+      <Link to="/">Home</Link>
+      <Link to="/players">Players</Link>
+      <Link to="/team">Team</Link>
+      <Link to="/matches">Matches</Link>
+    </header>
 
-    <HeaderNav>
-      <HeaderNavItem href="/" text="Home"/>
-      <HeaderNavItem href="/players" text="Players" />
-      <HeaderNavItem href="/team" text="Team" />
-    </HeaderNav>
-  </Header>
-
-  <Content>
-    <Grid>
-      <Link to="players/asdfasdfasdf">Player</Link>
-      <Row>
-        <Column>
-          <Route path="/players/*"><Players/></Route>
-          <Route path="/team"><Team/></Route>
-          <Route path="/"><Home/></Route>
-        </Column>
-      </Row>
-    </Grid>
-  </Content>
-</Router>
+    <main>
+      <Route path="/matches/*"><Matches/></Route>
+      <Route path="/players/*"><Players/></Route>
+      <Route path="/team"><Team/></Route>
+      <Route path="/"><Home/></Route>
+      <Route path="/"><Home/></Route>
+    </main>
+  </Router>
+</div>
 
 
